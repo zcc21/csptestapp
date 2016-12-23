@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.cspdemo</groupId>
+		<artifactId>testapp</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>${csp.cloud.app.name}-bo-extension</artifactId>
+	<name>${csp.cloud.app.name} Bo Extension</name>
+
+	<properties>
+		<rootPrjDir>${project.basedir}/..</rootPrjDir>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ess-runtime-ext-libs</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ess-manager-util</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-dal-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-metadata-repository-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-common-base</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-systementities-dal-codegen</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-business_object-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-business_object-impl</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${csp.cloud.app.name}-repository-packager</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-metadata-repository-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-metadata-repository-internal-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ent-session-manager-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-message-bus-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-enterprise-cache-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-jmx-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-authentication-manager-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-systementities-bo-extension</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	    <dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-api</artifactId>
+	    </dependency>		
+	</dependencies>
+	<build>
+                <finalName>${project.groupId}-${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-ddl-codegen-plugin</artifactId>
+				<configuration>
+					<appId>${csp.cloud.app.cmr.applicationid}</appId>
+					<repositoryConfigFile>${rootPrjDir}/repository-packager/src/main/resources/Repository_Config.xml</repositoryConfigFile>
+					<dBConnectionConfigFilePath>${rootPrjDir}/repository-packager/target/temp/cmr_db_connection_for_install.properties</dBConnectionConfigFilePath>
+					<javaSrcFolder>${basedir}/target/generated-sources/src/main/java</javaSrcFolder>
+					<generatedSrcFolder>${basedir}/target/generated-sources/src/main/java</generatedSrcFolder>
+					<replaceAll>true</replaceAll>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bo-extension-codegen</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>app_cmr_repo_config</goal>
+							<goal>app_bo_extension_gen</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${basedir}/target/generated-sources/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+						
+ 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>only-api-classes</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<classifier>api</classifier>
+							<includes>
+								<include>**/businessobject/api/**/*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-overall-jar</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<file>${project.basedir}/target/${project.build.finalName}.${project.packaging}</file>
+							<generatePom>false</generatePom>
+							<pomFile>pom.xml</pomFile>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<packaging>${project.packaging}</packaging>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-api-classes-jar</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<file>${project.basedir}/target/${project.build.finalName}-api.${project.packaging}</file>
+							<generatePom>false</generatePom>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<packaging>${project.packaging}</packaging>
+							<classifier>api</classifier>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable> 
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>			
+		</plugins>
+	</build>
+</project>
+

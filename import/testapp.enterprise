@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enterprise:Enterprise xmlns="http://www.chanjet.com/metadata/base" xmlns:enterprise="http://www.chanjet.com/metadata/enterprise"
+	name="myEnterpriseId1" 
+	id="myEnterpriseId1" 
+	webContextRoot="webapp"
+	languageCode="zh"
+	countryCode="CN"
+	globalSchemaVersion="2.0.0">
+<Properties>
+<Property name="active" value="true"/>
+</Properties>
+</enterprise:Enterprise>

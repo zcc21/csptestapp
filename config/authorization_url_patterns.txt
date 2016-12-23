@@ -1,0 +1,8 @@
+/bo/query/Customer
+/bo/query/Customer/*
+/bo/dml/Customer
+/bo/dml/Customer
+/bo/query/Contact
+/bo/query/Contact/*
+/bo/dml/Contact
+/bo/query/CSPUser

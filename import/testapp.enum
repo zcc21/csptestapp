@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enum:AppCSPEnums xmlns:enum="http://www.chanjet.com/metadata/appCSPEnums" xmlns="http://www.chanjet.com/metadata/base" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="appEnums" xsi:schemaLocation="http://www.chanjet.com/metadata/base http://www.chanapp.com/xsd/metadata/userschema/xsd/BaseUserMetadata.xsd http://www.chanjet.com/metadata/appCSPEnums http://www.chanapp.com/xsd/metadata/userschema/xsd/AppCSPEnums.xsd">
+    <enum:CSPEnum name="ContactGender">
+        <enum:EnumValues>
+            <enum:EnumValue label="男" name="male" ordinal="0"/>
+            <enum:EnumValue label="女" name="female" ordinal="1"/>
+        </enum:EnumValues>
+    </enum:CSPEnum>
+</enum:AppCSPEnums>

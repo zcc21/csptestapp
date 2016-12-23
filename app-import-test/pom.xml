@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.cspdemo</groupId>
+		<artifactId>testapp</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>${csp.cloud.app.name}-build-test</artifactId>
+	<packaging>jar</packaging>
+	<name>${csp.cloud.app.name} Build Test</name>
+
+	<properties>
+		<rootPrjDir>${project.basedir}/..</rootPrjDir>
+	</properties>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-nio</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ccs-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ccs-impl</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ess-manager-util</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ent-status-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ent-status-impl</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-message-bus-api</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-app-test-base</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<filters> <!-- filter properties for import-test-data.sh -->
+			<filter>${rootPrjDir}/repository-packager/target/temp/cmr_db_connection_for_install.properties</filter>
+		</filters>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${project.build.directory}/classes</classesDirectory>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<finalName>${csp.cloud.app.cmr.applicationid}-test-${project.version}</finalName>
+					<includes>
+						<include>import/*.csv</include>
+						<include>*.xml</include>
+						<include>*.properties</include>
+						<include>*.json</include>
+						<include>*.jar</include>
+						<include>*.sh</include>
+						<include>test-lib/*.jar</include>
+					</includes>
+					<excludes>
+						<exclude>csp-*</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution> <!-- zip tests jar -->
+						<id>test-jar-files</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<finalName>${csp.cloud.app.cmr.applicationid}-${project.version}</finalName>
+							<includes>
+								<include>**/*.class</include>
+							</includes>
+							<excludes>
+								<exclude>config.json</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution> <!-- copy csv files to import -->
+						<id>copy-csv-file</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/import/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/import</directory>
+									<includes>
+										<include>*.csv</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution> <!-- copy config files & test case jar -->
+						<id>copy-config-file</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<escapeString>\</escapeString>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources</directory>
+									<includes>
+										<include>*.properties</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>${project.basedir}/src/test/resources</directory>
+									<includes>
+										<include>*.json</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>${project.basedir}/src/main/resources</directory>
+									<includes>
+										<include>pom-load.xml</include>
+										<include>pom-test.xml</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<directory>${rootPrjDir}/repository-packager/target/temp</directory>
+									<includes>
+										<include>cmr_db_connection_for_install.properties</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution> <!-- copy sh files -->
+						<id>copy-sh-file</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<escapeString>\</escapeString>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources</directory>
+									<includes>
+										<include>*.sh</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin> <!-- gen test lib only -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/test-lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-test-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-test-lib</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy_files</goal>
+						</goals>
+						<configuration>
+							<sourceDir>${project.build.directory}/test-lib</sourceDir>
+							<targetDir>${project.build.directory}/classes/test-lib</targetDir>
+							<excludeDir>${rootPrjDir}/webapp/target/${csp.cloud.app.name}-webapp-${project.version}/WEB-INF/lib</excludeDir>
+							<appId>${csp.cloud.app.cmr.applicationid}</appId>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

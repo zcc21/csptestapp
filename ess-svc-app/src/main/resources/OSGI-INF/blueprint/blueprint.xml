@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:bpext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0">
+
+	<bean id="essmanagersvc-${enterpriseId}" class="com.chanjet.csp.ess.impl.manager.EssManagerImpl"
+		scope="singleton" factory-method="getInstance">
+	</bean>
+
+	<service ref="essmanagersvc-${enterpriseId}" interface="com.chanjet.csp.ess.api.manager.IEssManager">
+		<service-properties>
+			<entry key="enterpriseId" value="${enterpriseId}" />
+		</service-properties>
+	</service>
+</blueprint>

@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+           http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.cspdemo</groupId>
+		<artifactId>testapp</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>${csp.cloud.app.name}-bo-update</artifactId>
+	<name>${csp.cloud.app.name} Refresh BO metadata</name>
+
+	<properties>
+		<rootPrjDir>${project.basedir}/..</rootPrjDir>
+		<rootConfigDir>${rootPrjDir}/config</rootConfigDir>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>default-install</id>
+							<phase>none</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-ddl-codegen-plugin</artifactId>
+				<configuration>
+					<importDirectory>${rootPrjDir}/import</importDirectory>
+					<applicationId>${csp.cloud.app.cmr.applicationid}</applicationId>
+					<revEngFile>${rootConfigDir}/hibernate.reveng.xml</revEngFile>
+					<appDbSchemaXmlFile>${rootConfigDir}/app_db_schema.xml</appDbSchemaXmlFile>
+					<repositoryConfigFile>${project.basedir}/../repository-packager/src/main/resources/Repository_Config.xml</repositoryConfigFile>
+					<dBConnectionConfigFilePath>${rootPrjDir}/repository-packager/target/temp/cmr_db_connection_for_install.properties</dBConnectionConfigFilePath>
+                                        <importBusinessObjectsOnly>true</importBusinessObjectsOnly>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>app_cmr_repo_config</goal>
+							<goal>app_codegen_cmr</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

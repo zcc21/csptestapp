@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.cspdemo</groupId>
+		<artifactId>testapp</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>${csp.cloud.app.name}-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>${csp.cloud.app.name} Web App</name>
+
+	<properties>
+		<rootPrjDir>${project.basedir}/..</rootPrjDir>
+		<org.apache.cxf.version>2.7.8</org.apache.cxf.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-common-base</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-dm-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-app-manager</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-rest-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-rest-app</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-scheduler-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-event</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-business_object-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-business_object-service</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-auth-mgmt-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-auth-mgmt-service</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-runtime-util</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-customized-login</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-war-widget</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ess-manager-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-message-bus-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-message-bus-app-service</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-message-bus-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-metadata-repository-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-jmx-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ccs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
+                <dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${csp.cloud.app.name}-repository-packager</artifactId>
+			<classifier>mar</classifier>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${csp.cloud.app.name}-bo-extension</artifactId>
+			<version>${project.version}</version>
+			<classifier>api</classifier>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-systementities-bo-extension</artifactId>
+			<classifier>api</classifier>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-gql-support</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-app-metadata</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeClassifiers>mar</includeClassifiers>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+							<includes>**/*.xml,**/*.properties, **/*.application,
+								**/*.catalog,
+								**/*.messages, **/*.relationship, **/*.entity,
+								**/*.event, **/*.seeddata,
+								**/*.appcspenums, **/*.businessmodel,
+								**/*.businessobject,
+								**/*.picker, **/*.enterprise,
+								**/*.query</includes>
+						</configuration>
+					</execution>
+					<execution>
+ 						<id>copy-bo-extension</id>
+ 						<phase>prepare-package</phase>
+ 						<goals>
+ 							<goal>copy</goal>
+ 						</goals>
+ 						<configuration>
+ 							<artifactItems>
+ 								<artifactItem>
+ 									<groupId>${project.groupId}</groupId>
+ 									<artifactId>${csp.cloud.app.name}-bo-extension</artifactId>
+ 									<version>${project.version}</version>
+ 									<type>jar</type>
+ 									<classifier>api</classifier>
+ 									<overWrite>true</overWrite>
+ 									<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/stagingcopy</outputDirectory>
+ 									<destFileName>${project.groupId}-${csp.cloud.app.name}-bo-extension-api.jar</destFileName>
+ 								</artifactItem>
+ 							</artifactItems>
+ 							<overWriteReleases>true</overWriteReleases>
+ 							<overWriteSnapshots>true</overWriteSnapshots>
+ 						</configuration>
+ 					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-ddl-codegen-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>set metadata properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>app_metadata_property_list</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>process web xml</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>process_web_xml</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-cspapp</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/classes/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/../config</directory>
+									<includes>
+										<include>cspapp.properties</include>
+										<include>csp_transformer.properties</include>
+										<include>authorization_url_patterns.txt</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-hibernate-cfg</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/stagingcopy</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${rootPrjDir}/app-dal-codegen/target/generated-sources/src/main/resources/com/chanjet/csp/platform/cfg/</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>hibernate.cfg.xml</include>
+									</includes>
+								</resource>
+							</resources>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${csp.cloud.app.cmr.applicationid}-${project.version}</warName>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<targetPath>stagingcopy</targetPath>
+							<includes>
+								<include>WEB-INF/geronimo-web.xml</include>
+								<include>OSGI-INF/blueprint/blueprint.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>*.properties</include>
+							</includes>
+							<filtering>false</filtering>
+						</resource>
+						<resource>
+							<directory>${rootPrjDir}/target/globalSchema</directory>
+							<targetPath>stagingcopy/globalSchema</targetPath>
+							<includes>
+								<include>**/*.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${project.build.directory}/${project.artifactId}-${project.version}/stagingcopy/OSGI-INF</directory>
+							<targetPath>OSGI-INF</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+						<resource>
+							<directory>${project.build.directory}/${project.artifactId}-${project.version}/stagingcopy/WEB-INF</directory>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>geronimo-web.xml</include>
+								<include>web.xml</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-security-plugin</artifactId>
+				<configuration>
+					<appWebXmlFile>${basedir}/src/main/webapp/WEB-INF/web.xml</appWebXmlFile>
+					<appWarFiles>
+						<appWarFile>
+							<appId>${csp.cloud.app.cmr.applicationid}</appId>
+							<warFile>${project.build.directory}/${csp.cloud.app.cmr.applicationid}-${project.version}.war</warFile>
+						</appWarFile>
+					</appWarFiles>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>security_screening</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

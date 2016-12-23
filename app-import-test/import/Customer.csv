@@ -1,0 +1,3 @@
+id,name,type,owner,capital,employeeNumber,isListed,estabnishDate,marketShare
+100001,Test1,,${USER.isvtest},,,,,
+100002,Test2,,${USER.isvtest},,,,,

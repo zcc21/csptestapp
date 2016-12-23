@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1"
+	xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2">
+	<sys:environment>
+		<sys:moduleId>
+			<sys:groupId>com.chanjet.csp</sys:groupId>
+			<sys:artifactId>ess-svc-${enterpriseId}</sys:artifactId>
+			<sys:version>${csp.version}</sys:version>
+			<sys:type>war</sys:type>
+		</sys:moduleId>
+
+		<sys:dependencies>
+		</sys:dependencies>
+		<sys:export-package>${exportPackageList}</sys:export-package>
+
+	</sys:environment>
+	<context-root>/ESS/${enterpriseId}-${applicationId}-${project.version}</context-root>
+</web-app>
+

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bo xmlns="http://www.chanjet.com/metadata/base"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bo="http://www.chanjet.com/metadata/businessObject"
+	xmlns:field="http://www.chanjet.com/metadata/BOField"
+	xmlns:bm="http://www.chanjet.com/metadata/businessModel"
+	xmlns:baseField="http://www.chanjet.com/metadata/base/baseField"
+	xmlns:picker="http://www.chanjet.com/metadata/picker"
+	xmlns:query="http://www.chanjet.com/metadata/query">
+	<sapphirelayout>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGRpYWdyYW0tZ2VvbWV0cnk+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDU1BVc2VyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjM2IiB5PSIxOTMiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDb250YWN0IzE8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjMwNiIgeT0iMzYiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDdXN0b21lciMyPC9pZD4NCiAgICAgICAgPGJvdW5kcyB4PSI1OTAiIHk9IjE1MCIvPg0KICAgIDwvbm9kZT4NCjwvZGlhZ3JhbS1nZW9tZXRyeT4=</sapphirelayout>
+	<bo:BusinessObjects>
+		<bo:BusinessObject systemflag="true" name="CSPUser" label="用户"
+			includeAllEOFields="true" primary="true">
+			<bo:EntityUsages>
+				<bo:PrimaryEO name="User" refEntityName="User"></bo:PrimaryEO>
+			</bo:EntityUsages>
+		</bo:BusinessObject>
+		<bo:BusinessObject name="Contact" label="联系人"
+			enableExtensionCodeGen="true" includeAllEOFields="true"
+			includeCustomFields="true" primary="true">
+			<bo:EntityUsages>
+				<bo:PrimaryEO name="Contact" refEntityName="Contact"></bo:PrimaryEO>
+				<bo:JoinedEO name="CustomerEO" refEntityName="Customer"
+					joinType="LeftOuterJoin" viaRelationships="ContactToCustomer">
+				</bo:JoinedEO>
+			</bo:EntityUsages>
+			<bo:Fields>
+				<bo:Field name="name" label="姓名" type="Text"
+					refEntityUsageName="Contact" refEntityFieldName="name">
+					<field:UiHints>
+						<field:UiHint name="showOnList"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+					<field:Validation>
+						<baseField:Rule name="EmptyCheck"></baseField:Rule>
+						<baseField:Rule name="StringLengthCheck">
+							<baseField:Parameters>
+								<baseField:Parameter name="maxLength"
+									value="20">
+								</baseField:Parameter>
+							</baseField:Parameters>
+						</baseField:Rule>
+					</field:Validation>
+				</bo:Field>
+				<bo:Field name="email" label="邮箱" type="Email"
+					refEntityUsageName="Contact" refEntityFieldName="email">
+					<field:UiHints>
+						<field:UiHint name="showOnList"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+					<field:Validation>
+						<baseField:Rule name="EmailCheck"></baseField:Rule>
+					</field:Validation>
+				</bo:Field>
+				<bo:Field name="address" label="地址" type="Text"
+					refEntityUsageName="Contact" refEntityFieldName="address">
+					<field:UiHints>
+						<field:UiHint name="showOnList"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+					<field:Validation>
+						<baseField:Rule name="UriCheck"></baseField:Rule>
+					</field:Validation>
+				</bo:Field>
+                <bo:Field name="mobile" label="手机" refEntityUsageName="Contact" refEntityFieldName="mobile" type="MobilePhone">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </bo:Field>
+                <bo:Field name="gender" label="性别" refEntityUsageName="Contact" refEntityFieldName="gender" type="Enum">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </bo:Field>
+				<bo:Field name="customerName" label="客户名称" type="Text" refEntityUsageName="CustomerEO" refEntityFieldName="name">
+					<field:UiHints>
+						<field:UiHint name="showOnList"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+				</bo:Field>
+			</bo:Fields>
+		</bo:BusinessObject>
+		<bo:BusinessObject name="Customer" label="Customer"
+			enableExtensionCodeGen="true" includeAllEOFields="true"
+			primary="true">
+			<bo:EntityUsages>
+				<bo:PrimaryEO name="Customer"
+					refEntityName="Customer">
+				</bo:PrimaryEO>
+			</bo:EntityUsages>
+			<bo:Fields>
+				<bo:Field name="name" type="Text"
+					refEntityUsageName="Customer" refEntityFieldName="name" label="名称">
+					<field:UiHints>
+						<field:UiHint name="showOnList" value="true"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+					<field:Validation>
+						<baseField:Rule name="EmptyCheck"></baseField:Rule>
+						<baseField:Rule name="StringLengthCheck">
+							<baseField:Parameters>
+								<baseField:Parameter name="minLength"
+									value="5">
+								</baseField:Parameter>
+							</baseField:Parameters>
+						</baseField:Rule>
+					</field:Validation>
+				</bo:Field>
+				<bo:Field name="employeeNumber" label="员工数"
+					type="Integer" refEntityUsageName="Customer"
+					refEntityFieldName="employeeNumber">
+					<field:UiHints>
+						<field:UiHint name="showOnList" value="true"></field:UiHint>
+						<field:UiHint name="showOnView"></field:UiHint>
+						<field:UiHint name="showOnEdit"></field:UiHint>
+						<field:UiHint name="asQuery"></field:UiHint>
+						<field:UiHint name="asDimension"></field:UiHint>
+						<field:UiHint name="asMeasure"></field:UiHint>
+						<field:UiHint name="editable"></field:UiHint>
+					</field:UiHints>
+					<field:Validation>
+						<baseField:Rule name="NumberScopeCheck">
+							<baseField:Parameters>
+								<baseField:Parameter name="minValue"
+									value="5">
+								</baseField:Parameter>
+							</baseField:Parameters>
+						</baseField:Rule>
+					</field:Validation>
+				</bo:Field>
+			</bo:Fields>
+		</bo:BusinessObject>
+	</bo:BusinessObjects>
+</bo>

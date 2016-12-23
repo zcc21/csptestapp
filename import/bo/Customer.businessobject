@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bo:BusinessObject xmlns:bo="http://www.chanjet.com/metadata/businessObject" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseField="http://www.chanjet.com/metadata/base/baseField" xmlns:field="http://www.chanjet.com/metadata/BOField" enableExtensionCodeGen="true" includeAllEOFields="true" label="Customer" name="Customer" primary="true">
+    <bo:EntityUsages>
+				<bo:PrimaryEO name="Customer">
+				</bo:PrimaryEO>
+			</bo:EntityUsages>
+    <bo:Fields>
+				<bo:Field label="名称" name="name" refEntityFieldName="name" refEntityUsageName="Customer" type="Text">
+            <field:UiHints>
+                <UiHint name="showOnList" value="true"/>
+                <UiHint name="displayOrder" value="1"/>
+            </field:UiHints>
+            <field:Validation>
+						<baseField:Rule name="EmptyCheck"/>
+						<baseField:Rule name="StringLengthCheck">
+                    <baseField:Parameters>
+                        <baseField:Parameter name="minLength" value="5"/>
+                    </baseField:Parameters>
+                </baseField:Rule>
+					</field:Validation>
+        </bo:Field>
+				<bo:Field label="员工数" name="employeeNumber" refEntityFieldName="employeeNumber" refEntityUsageName="Customer" type="Integer">
+            <field:UiHints>
+                <UiHint name="showOnList" value="true"/>
+                <UiHint name="displayOrder" value="2"/>
+            </field:UiHints>
+            <field:Validation>
+						<baseField:Rule name="NumberScopeCheck">
+                    <baseField:Parameters>
+                        <baseField:Parameter name="minValue" value="5"/>
+                    </baseField:Parameters>
+                </baseField:Rule>
+					</field:Validation>
+        </bo:Field>
+			</bo:Fields>
+</bo:BusinessObject>

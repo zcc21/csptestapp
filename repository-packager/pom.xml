@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.cspdemo</groupId>
+		<artifactId>testapp</artifactId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>${csp.cloud.app.name}-repository-packager</artifactId>
+	<name>${csp.cloud.app.name} Repository Packager</name>
+
+	<properties>
+		<rootPrjDir>${basedir}/..</rootPrjDir>
+		<rootConfigDir>${rootPrjDir}/config</rootConfigDir>
+		<rootScriptsDir>${rootPrjDir}/scripts</rootScriptsDir>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-ess-runtime-ext-libs</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-metadata-repository-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-metadata-repository</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>com.chanjet.csp</includeGroupIds>
+							<includeArtifactIds>csp-metadata-repository-api</includeArtifactIds>
+							<includeScope>provided</includeScope>
+							<outputDirectory>${rootScriptsDir}</outputDirectory>
+							<includes>CMRSchema.ddl</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>${rootConfigDir}/hibernate.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<configuration>
+					<driver>${hibernate.connection.driver_class}</driver>
+					<url>${hibernate.connection.url}</url>
+					<username>${hibernate.connection.username}</username>
+					<password>${hibernate.connection.password}</password>
+					<sqlCommand>drop schema if exists ${metadataSchema} cascade; create
+						schema ${metadataSchema} authorization
+						"${hibernate.connection.username}"; set search_path to
+						${metadataSchema};</sqlCommand>
+				</configuration>
+				<executions>
+					<execution>
+						<id>create_schema</id>
+						<phase>package</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<delimiter>/</delimiter>
+							<delimiterType>normal</delimiterType>
+							<autocommit>true</autocommit>
+							<srcFiles>
+								<srcFile>${rootScriptsDir}/CMRSchema.ddl</srcFile>
+							</srcFiles>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-ddl-codegen-plugin</artifactId>
+				<configuration>
+					<inputDBStoreConfigFile>${rootConfigDir}/hibernate.properties</inputDBStoreConfigFile>
+					<outputDBStoreConfigFile>target/temp/cmr_db_connection.properties</outputDBStoreConfigFile>
+					<outputDBStoreConfigFileForInstall>target/temp/cmr_db_connection_for_install.properties</outputDBStoreConfigFileForInstall>
+					<outputDBConnectionPoolingFile>target/temp/connectionPool.properties</outputDBConnectionPoolingFile>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<!--generate db store configuration file -->
+							<goal>app_cmr_db_config_gen</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.chanjet.csp</groupId>
+				<artifactId>csp-app-ddl-codegen-plugin</artifactId>
+				<configuration>
+					<repositoryConfigFile>${rootConfigDir}/Repository_Config.xml</repositoryConfigFile>
+					<globalMessageFile>${rootPrjDir}/target/globalSchema</globalMessageFile>
+					<importDirectory>${rootPrjDir}/import</importDirectory>
+					<appSeedDataJar>${rootPrjDir}/app-import/import/${csp.cloud.app.cmr.applicationid}.seeddata.jar</appSeedDataJar>
+					<cspAppMigrationFile>${rootPrjDir}/app-import/import/CspAppMigration.csv</cspAppMigrationFile>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>app_cmr_repo_config</goal>
+							<goal>app_cmr_repo_globalsubmit</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>${basedir}/src/main/assembly/mar_desc.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- append to the packaging phase. -->
+						<goals>
+							<goal>single</goal> <!-- goals == mojos -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

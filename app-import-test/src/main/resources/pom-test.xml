@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.chanapp.chanjet</groupId>
+		<artifactId>cloud-app</artifactId>
+		<version>csp.version</version>
+	</parent>
+
+	<artifactId>csp-run-tests</artifactId>
+	<packaging>pom</packaging>
+	<name>CSP App Run Tests</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${csp.cloud.app.name}-tests</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.chanjet.csp</groupId>
+			<artifactId>csp-app-test-base</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>csp-ccs-util</artifactId>
+					<groupId>com.chanjet.csp</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>\${junit.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>\${fasterxml.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-jaxb-annotations</artifactId>
+			<version>\${fasterxml.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>\${fasterxml.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+				<executions>
+					<execution>
+						<id>install-external-jar</id>
+						<phase>process-test-classes</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>\${basedir}/${csp.cloud.app.cmr.applicationid}-${project.version}-tests.jar</file>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${csp.cloud.app.name}-tests</artifactId>
+							<version>${project.version}</version>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>run-test-jar</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<includes>
+								<include>**/IT*.java</include>
+								<include>**/*IT.java</include>
+								<include>**/*ITCase.java</include>
+							</includes>
+							<excludes>
+								<exclude>**/Abstract*.java</exclude>
+							</excludes>
+							<dependenciesToScan>
+								<dependency>${project.groupId}:${csp.cloud.app.name}-tests</dependency>
+							</dependenciesToScan>
+							<additionalClasspathElements>
+								<additionalClasspathElement>\${appRootDir}/WEB-INF/classes</additionalClasspathElement>
+								<additionalClasspathElement>\${project.build.directory}</additionalClasspathElement>
+								<additionalClasspathElement>\${basedir}/test-lib/*</additionalClasspathElement>
+								<additionalClasspathElement>\${appRootDir}/WEB-INF/lib/*</additionalClasspathElement>
+							</additionalClasspathElements>
+							<useManifestOnlyJar>false</useManifestOnlyJar>
+							<useSystemClassLoader>false</useSystemClassLoader>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<entity:Entity xmlns:entity="http://www.chanjet.com/metadata/entity" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseEntity="http://www.chanjet.com/metadata/base/baseEntity" xmlns:field="http://www.chanjet.com/metadata/field" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" authMode="None" label="联系人" name="Contact" searchable="true" xsi:schemaLocation="http://www.chanjet.com/metadata/base http://www.chanapp.com/xsd/metadata/userschema/xsd/BaseUserMetadata.xsd http://www.chanjet.com/metadata/relationship http://www.chanapp.com/xsd/metadata/userschema/xsd/Relationship.xsd">
+    <entity:Fields>
+        <entity:Field active="true" index="false" label="姓名" name="name" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="1"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" index="false" label="手机" name="mobile" type="MobilePhone" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="2"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" index="false" label="邮箱" name="email" type="Email" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="3"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" end="Target" index="false" label="所属公司" name="customer" relationshipName="ContactToCustomer" type="ForeignKey" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="4"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" index="false" label="所属部门" name="department" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="5"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" index="false" label="职位" name="position" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="6"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" index="false" label="地址" name="address" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="7"/>
+            </field:UiHints>
+        </entity:Field>
+        <entity:Field active="true" cspEnumName="ContactGender" index="false" label="性别" name="gender" type="Enum" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="8"/>
+            </field:UiHints>
+        </entity:Field>
+    </entity:Fields>
+</entity:Entity>
