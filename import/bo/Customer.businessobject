@@ -14,7 +14,7 @@
 						<baseField:Rule name="EmptyCheck"/>
 						<baseField:Rule name="StringLengthCheck">
                     <baseField:Parameters>
-                        <baseField:Parameter name="minLength" value="5"/>
+                        <baseField:Parameter name="minLength" value="3"/>
                     </baseField:Parameters>
                 </baseField:Rule>
 					</field:Validation>
@@ -24,13 +24,8 @@
                 <UiHint name="showOnList" value="true"/>
                 <UiHint name="displayOrder" value="2"/>
             </field:UiHints>
-            <field:Validation>
-						<baseField:Rule name="NumberScopeCheck">
-                    <baseField:Parameters>
-                        <baseField:Parameter name="minValue" value="5"/>
-                    </baseField:Parameters>
-                </baseField:Rule>
-					</field:Validation>
+            <field:Validation>						
+			</field:Validation>
         </bo:Field>
 			</bo:Fields>
 </bo:BusinessObject>
