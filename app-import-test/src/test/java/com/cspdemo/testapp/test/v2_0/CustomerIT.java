@@ -1,6 +1,6 @@
 package com.cspdemo.testapp.test.v2_0;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class CustomerIT extends RestfulIT {
 		assertEquals(200, response.getStatusCode());
 	    String barString = response.getString();
 	    JSONObject barJson = JSON.parseObject(barString);
-	    //System.out.println(barJson);
+	    assertNotNull(barJson.get("id"));
 	    assertEquals("bar", barJson.get("name"));
 	}
 }
