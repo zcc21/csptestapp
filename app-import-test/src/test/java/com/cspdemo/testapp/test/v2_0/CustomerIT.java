@@ -22,7 +22,8 @@ public class CustomerIT extends RestfulIT {
 		setIsCspServletURL(false);
 		
 		Map<String, Object> barMap = new HashMap<String, Object>();
-		barMap.put("name", DEFAULT_BAR_NAME);		
+		barMap.put("name", DEFAULT_BAR_NAME);
+		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName} 
 		HttpResponse response = this.doPost("isvtest", "/restlet/v2_0/Customer", barMap);
 		assertEquals(200, response.getStatusCode());
 	    String barString = response.getString();
@@ -30,43 +31,67 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowAddANewCustomer() throws Exception {		
+	public void shouldAllowAddANewCustomer() throws Exception {
+		// Check:
 	    assertNotNull(bar.get("id"));
 	    assertEquals(DEFAULT_BAR_NAME, bar.get("name"));
 	}
 	
 	@Test
 	public void shouldAllowGetACustomer() throws Exception {
-		Long barId = bar.getLong("id");				
+		// Given:
+		Long barId = bar.getLong("id");	
+		
+		// When: reload the bar
+		// GET - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
 		HttpResponse response = this.doGet("isvtest", "/restlet/v2_0/Customer/" + barId, null);
 		assertEquals(200, response.getStatusCode());
 	    String sameBarString = response.getString();
 	    JSONObject sameBar = JSON.parseObject(sameBarString);
+	    
+	    // Then: check the two bars are same
+	    assertEquals(barId, sameBar.getLong("id"));
 	    assertEquals(bar.get("name"), sameBar.get("name"));
 	}
 	
 	@Test
 	public void shouldAllowUpdateACustomer() throws Exception {
+		// Given:
 		Long barId = bar.getLong("id");	
 		String newBarName = "barbar";
 		Map<String, Object> newBarMap = new HashMap<String, Object>();
-		newBarMap.put("name", newBarName);		
+		newBarMap.put("name", newBarName);	
+		
+		// When: update the name
+		// PUT - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
 		HttpResponse response = this.doPut("isvtest", "/restlet/v2_0/Customer/" + barId, newBarMap);
 		assertEquals(200, response.getStatusCode());
-	    String newBarString = response.getString();
-	    JSONObject newBar = JSON.parseObject(newBarString);
-	    
-	    assertEquals(barId, newBar.getLong("id"));
-	    assertEquals(newBarName, newBar.get("name"));
+		
+		// Then: check the name has updated
+		response = this.doGet("isvtest", "/restlet/v2_0/Customer/" + barId, null);
+		assertEquals(200, response.getStatusCode());
+	    String updatedBarString = response.getString();
+	    JSONObject updatedBar = JSON.parseObject(updatedBarString);
+	    assertEquals(barId, updatedBar.getLong("id"));
+	    assertEquals(newBarName, updatedBar.get("name"));
 	}
 	
 	@Test
 	public void shouldAllowDeleteACustomer() throws Exception {
+		// Given:
 		Long barId = bar.getLong("id");
+		
+		// When: delete the bar
+		// DELETE - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
 		HttpResponse response = this.doDelete("isvtest", "/restlet/v2_0/Customer/" + barId, null);
 			
-		// check whether the bar is deleted
+		// Then: check whether the bar is deleted
 		response = this.doGet("isvtest", "/restlet/v2_0/Customer/" + barId, null);
 		assertNull(response.getString());
+	}
+	
+	@Test
+	public void shouldAllowAddANewCustomerWithAContact() {
+		
 	}
 }

@@ -13,19 +13,19 @@ import com.chanjet.csp.common.base.util.TransactionTracker;
 import com.chanjet.csp.data.api.DataManager;
 import com.chanjet.csp.rest.restlet.Restlet;
 
-public class Customer extends Restlet {
+public class Contact extends Restlet {
 	@Override
 	public Object doDeleteId(Map<String, String[]> queryParameters, String payload, Long id) {
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
 		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		IBusinessObjectRow customerRow = null;
+		IBusinessObjectRow contactRow = null;
 		try {
 			// open transaction
 			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
 			
-			// delete customer
+			// delete contact
 			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
-			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");		
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Contact");		
 			boHome.delete(id);
 			
 			// commit
@@ -42,15 +42,15 @@ public class Customer extends Restlet {
 	public Object doGetId(Map<String, String[]> queryParameters, Long id) {
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
 		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		IBusinessObjectRow customerRow = null;
+		IBusinessObjectRow contactRow = null;
 		try {
 			// open transaction
 			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
 			
-			// query customer
+			// query contact
 			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
-			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");		
-			customerRow = boHome.query(id);		
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Contact");		
+			contactRow = boHome.query(id);		
 			
 			// commit
 			transactionManager.commitTransaction(boSession, transactionTrack);
@@ -59,25 +59,25 @@ public class Customer extends Restlet {
 			transactionManager.rollbackTransaction(boSession);
 		}		
 		
-		return customerRow;
+		return contactRow;
 	}
 
 	@Override
-	public Object doPost(Map<String, String[]> queryParameters, String customerJsonString) {		
+	public Object doPost(Map<String, String[]> queryParameters, String contactJsonString) {		
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
 		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		IBusinessObjectRow customerRow = null;
+		IBusinessObjectRow contactRow = null;
 		try {
 			// open transaction
 			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
 			
-			// add new customer
+			// add new contact
 			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
-			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");			
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Contact");			
 			DataManager dataManager = AppWorkManager.getDataManager();
-			LinkedHashMap<String, Object> customerMap = dataManager.fromJSONString(customerJsonString, LinkedHashMap.class);
-			customerRow = boHome.constructBORowForInsert(boSession, customerMap);
-			boHome.upsert(customerRow);
+			LinkedHashMap<String, Object> contactMap = dataManager.fromJSONString(contactJsonString, LinkedHashMap.class);
+			contactRow = boHome.constructBORowForInsert(boSession, contactMap);
+			boHome.upsert(contactRow);
 			
 			// commit
 			transactionManager.commitTransaction(boSession, transactionTrack);
@@ -86,25 +86,25 @@ public class Customer extends Restlet {
 			transactionManager.rollbackTransaction(boSession);
 		}		
 		
-		return customerRow;
+		return contactRow;
 	}
 
 	@Override
 	public Object doPutId(Map<String, String[]> queryParameters, String payload, Long id) {
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
 		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		IBusinessObjectRow updatedCustomerRow = null;
+		IBusinessObjectRow updatedContactRow = null;
 		try {
 			// open transaction
 			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
 			
-			// update customer
+			// update contact
 			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
-			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");			
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Contact");			
 			DataManager dataManager = AppWorkManager.getDataManager();
-			LinkedHashMap<String, Object> updatedCustomerMap = dataManager.fromJSONString(payload, LinkedHashMap.class);
-			updatedCustomerRow = boHome.constructBORowForUpdate(boSession, id, updatedCustomerMap);			
-			boHome.upsert(updatedCustomerRow);
+			LinkedHashMap<String, Object> updatedContactMap = dataManager.fromJSONString(payload, LinkedHashMap.class);
+			updatedContactRow = boHome.constructBORowForUpdate(boSession, id, updatedContactMap);			
+			boHome.upsert(updatedContactRow);
 			
 			// commit
 			transactionManager.commitTransaction(boSession, transactionTrack);
@@ -113,6 +113,6 @@ public class Customer extends Restlet {
 			transactionManager.rollbackTransaction(boSession);
 		}		
 		
-		return updatedCustomerRow;
+		return updatedContactRow;
 	}
 }
