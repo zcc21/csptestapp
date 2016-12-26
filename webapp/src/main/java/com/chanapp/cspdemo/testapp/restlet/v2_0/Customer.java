@@ -9,21 +9,58 @@ import com.chanjet.csp.bo.api.BoTransactionManager;
 import com.chanjet.csp.bo.api.IBusinessObjectHome;
 import com.chanjet.csp.bo.api.IBusinessObjectManager;
 import com.chanjet.csp.bo.api.IBusinessObjectRow;
-import com.chanjet.csp.common.base.exception.ServiceAppException;
+import com.chanjet.csp.common.base.json.JSONObject;
 import com.chanjet.csp.common.base.util.TransactionTracker;
 import com.chanjet.csp.data.api.DataManager;
-import com.chanjet.csp.rest.api.RestServiceManager;
 import com.chanjet.csp.rest.restlet.Restlet;
 
 public class Customer extends Restlet {
 	@Override
 	public Object doDeleteId(Map<String, String[]> queryParameters, String payload, Long id) {
-		throw new ServiceAppException("Service not implemented.");
+		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
+		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
+		IBusinessObjectRow customerRow = null;
+		try {
+			// open transaction
+			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
+			
+			// delete customer
+			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");		
+			boHome.delete(id);
+			
+			// commit
+			transactionManager.commitTransaction(boSession, transactionTrack);
+		} catch (Exception e) {
+			// roll back
+			transactionManager.rollbackTransaction(boSession);
+		}		
+
+		return null;
 	}
 
 	@Override
 	public Object doGetId(Map<String, String[]> queryParameters, Long id) {
-		throw new ServiceAppException("Service not implemented.");
+		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
+		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
+		IBusinessObjectRow customerRow = null;
+		try {
+			// open transaction
+			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
+			
+			// query customer
+			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");		
+			customerRow = boHome.query(id);		
+			
+			// commit
+			transactionManager.commitTransaction(boSession, transactionTrack);
+		} catch (Exception e) {
+			// roll back
+			transactionManager.rollbackTransaction(boSession);
+		}		
+		
+		return customerRow;
 	}
 
 	@Override
@@ -55,6 +92,28 @@ public class Customer extends Restlet {
 
 	@Override
 	public Object doPutId(Map<String, String[]> queryParameters, String payload, Long id) {
-		return null;
+		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
+		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
+		IBusinessObjectRow updatedCustomerRow = null;
+		try {
+			// open transaction
+			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
+			
+			// update customer
+			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");			
+			DataManager dataManager = AppWorkManager.getDataManager();
+			LinkedHashMap<String, Object> updatedCustomerMap = dataManager.fromJSONString(payload, LinkedHashMap.class);
+			updatedCustomerRow = boHome.constructBORowForUpdate(boSession, id, updatedCustomerMap);			
+			boHome.upsert(updatedCustomerRow);
+			
+			// commit
+			transactionManager.commitTransaction(boSession, transactionTrack);
+		} catch (Exception e) {
+			// roll back
+			transactionManager.rollbackTransaction(boSession);
+		}		
+		
+		return updatedCustomerRow;
 	}
 }
