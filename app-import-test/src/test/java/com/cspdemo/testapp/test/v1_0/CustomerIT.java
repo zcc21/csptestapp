@@ -22,6 +22,6 @@ public class CustomerIT extends RestfulIT {
 	    String barString = response.getString();
 	    JSONObject barJson = JSON.parseObject(barString);
 	    //System.out.println(barJson);
-	    assertEquals("barbar", barJson.get("name"));	   
+	    assertEquals("bar", barJson.get("name"));	   
 	}
 }
