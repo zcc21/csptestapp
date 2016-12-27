@@ -91,7 +91,35 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowAddANewCustomerWithAContact() {
+	public void shouldAllowAddANewCustomerWithAContact() throws Exception {
+		// Given:
+		// Customer info
+		Map<String, Object> barMap = new HashMap<>();
+		barMap.put("name", DEFAULT_BAR_NAME);
+		// Contact info
+		String fooName = "foo";
+		Map<String, Object> fooMap = new HashMap<>();
+		fooMap.put("name", fooName);		
+		Map<String, Object> barWithFooMap = new HashMap<>(); 
+		barWithFooMap.put("customer", barMap);
+		barWithFooMap.put("contact", fooMap);
+
+		// When: add contact related to the bar		
+		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{FuncName}
+		HttpResponse response = this.doPost("isvtest", "/restlet/v2_0/Customer/WithContact", barWithFooMap);
+		assertEquals(200, response.getStatusCode());		
+		String fooString = response.getString();
+		JSONObject barWithFoo = JSON.parseObject(fooString);
 		
+		// Then: check whether the foo is related to the bar
+		JSONObject bar = (JSONObject) barWithFoo.get("customer");
+		Long barId = bar.getLong("id");
+		assertNotNull(barId);
+		
+		JSONObject foo = (JSONObject) barWithFoo.get("contact");
+		Long fooId = foo.getLong("id");
+		assertNotNull(fooId);
+		Long barIdInFoo = ((JSONObject) foo.get("customer")).getLong("id");		
+		assertEquals(barId, barIdInFoo);
 	}
 }
