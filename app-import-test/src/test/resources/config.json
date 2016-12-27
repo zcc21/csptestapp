@@ -16,31 +16,31 @@
 		{
 			"isAppAdmin":true,
 			"password":"111111",
-			"tag":"testAdmin",
+			"tag":"admin",
 			"username":"test_18210195941"
 		},
 		{
 			"isAppAdmin":false,
 			"password":"111111",
-			"tag":"testRegular",
+			"tag":"boss",
 			"username":"test_18210195942"
 		},
 		{
 			"isAppAdmin":false,
 			"password":"111111",
-			"tag":"csp_qa_test1",
+			"tag":"salerA",
 			"username":"test_18210195943"
 		},
 		{
 			"isAppAdmin":false,
 			"password":"111111",
-			"tag":"csp_qa_test2",
+			"tag":"salerB",
 			"username":"test_18210195944"
 		},
 		{
 			"isAppAdmin":false,
 			"password":"111111",
-			"tag":"csp_qa_test3",
+			"tag":"salerC",
 			"username":"test_18210195945"
 		},
 		{
