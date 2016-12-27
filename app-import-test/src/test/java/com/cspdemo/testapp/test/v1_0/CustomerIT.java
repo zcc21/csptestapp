@@ -87,4 +87,25 @@ public class CustomerIT extends RestfulIT {
 		response = this.doGet("isvtest", "bo/query/Customer/" + barId, null);
 		assertEquals(400, response.getStatusCode());	
 	}
+	
+	@Test
+	public void shouldAllowAddANewCustomerWithAContact() throws Exception {
+		// Given:
+		Long barId = bar.getLongValue("id");
+		
+		// When: add contact related to the bar
+		String fooName = "foo";
+		Map<String, Object> fooMap = new HashMap<String, Object>();
+		fooMap.put("name", fooName);	
+		fooMap.put("customer", barId);
+		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
+		HttpResponse response = this.doPost("isvtest", "/bo/dml/Contact", fooMap);
+		assertEquals(200, response.getStatusCode());		
+	    String fooString = response.getString();
+	    JSONObject foo = JSON.parseObject(fooString);
+	    
+	    // Then: check whether the foo is related to the bar
+	    assertNotNull(foo.getLong("id"));
+	    assertEquals(barId, foo.getLong("customer"));	    
+	}
 }
