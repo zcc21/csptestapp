@@ -33,6 +33,7 @@ public class Contact extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 
 		return null;
@@ -57,6 +58,7 @@ public class Contact extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return contactRow;
@@ -84,6 +86,7 @@ public class Contact extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return contactRow;
@@ -111,6 +114,7 @@ public class Contact extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return updatedContactRow;

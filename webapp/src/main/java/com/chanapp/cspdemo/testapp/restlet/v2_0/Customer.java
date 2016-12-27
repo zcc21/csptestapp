@@ -36,6 +36,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 
 		return null;
@@ -60,6 +61,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return customerRow;
@@ -86,6 +88,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return customerRow;
@@ -113,6 +116,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
+			throw new RuntimeException(e);
 		}		
 		
 		return updatedCustomerRow;
