@@ -26,7 +26,7 @@ public class ContactIT extends RestfulIT {
 		Map<String, Object> fooMap = new HashMap<String, Object>();
 		fooMap.put("name", DEFAULT_FOO_NAME);
 		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName} 
-		HttpResponse response = this.doPost("isvtest", "/restlet/v2_0/Contact", fooMap);
+		HttpResponse response = this.doPost("admin", "/restlet/v2_0/Contact", fooMap);
 		assertEquals(200, response.getStatusCode());
 	    String fooString = response.getString();
 	    foo = JSON.parseObject(fooString);
@@ -46,7 +46,7 @@ public class ContactIT extends RestfulIT {
 		
 		// When: reload the foo
 		// GET - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
-		HttpResponse response = this.doGet("isvtest", "/restlet/v2_0/Contact/" + fooId, null);
+		HttpResponse response = this.doGet("admin", "/restlet/v2_0/Contact/" + fooId, null);
 		assertEquals(200, response.getStatusCode());
 	    String sameFooString = response.getString();
 	    JSONObject sameFoo = JSON.parseObject(sameFooString);
@@ -66,11 +66,11 @@ public class ContactIT extends RestfulIT {
 		
 		// When: update the name
 		// PUT - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
-		HttpResponse response = this.doPut("isvtest", "/restlet/v2_0/Contact/" + fooId, newFooMap);
+		HttpResponse response = this.doPut("admin", "/restlet/v2_0/Contact/" + fooId, newFooMap);
 		assertEquals(200, response.getStatusCode());
 		
 		// Then: check the name has updated
-		response = this.doGet("isvtest", "/restlet/v2_0/Contact/" + fooId, null);
+		response = this.doGet("admin", "/restlet/v2_0/Contact/" + fooId, null);
 		assertEquals(200, response.getStatusCode());
 	    String updatedFooString = response.getString();
 	    JSONObject updatedFoo = JSON.parseObject(updatedFooString);
@@ -85,10 +85,10 @@ public class ContactIT extends RestfulIT {
 		
 		// When: delete the foo
 		// DELETE - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{ID}
-		HttpResponse response = this.doDelete("isvtest", "/restlet/v2_0/Contact/" + fooId, null);
+		HttpResponse response = this.doDelete("admin", "/restlet/v2_0/Contact/" + fooId, null);
 			
 		// Then: check whether the foo is deleted
-		response = this.doGet("isvtest", "/restlet/v2_0/Contact/" + fooId, null);
+		response = this.doGet("admin", "/restlet/v2_0/Contact/" + fooId, null);
 		assertNull(response.getString());
 	}
 }

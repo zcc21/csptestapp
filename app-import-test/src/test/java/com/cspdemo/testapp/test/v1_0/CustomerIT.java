@@ -24,7 +24,7 @@ public class CustomerIT extends RestfulIT {
 		barMap.put("name", DEFAULT_BAR_NAME);
 		
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
-		HttpResponse response = this.doPost("isvtest", "/bo/dml/Customer", barMap);
+		HttpResponse response = this.doPost("admin", "/bo/dml/Customer", barMap);
 		assertEquals(200, response.getStatusCode());
 		
 	    String barString = response.getString();
@@ -47,11 +47,11 @@ public class CustomerIT extends RestfulIT {
 		
 		// When: update the name
 		// PUT - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}/{ID}
-		HttpResponse response = this.doPut("isvtest", "bo/dml/Customer/" + barId, bar);
+		HttpResponse response = this.doPut("admin", "bo/dml/Customer/" + barId, bar);
 		assertEquals(200, response.getStatusCode());
 	    
 	    // Then: check whether the name has updated
-	    response = this.doGet("isvtest", "bo/query/Customer/" + barId, null);		
+	    response = this.doGet("admin", "bo/query/Customer/" + barId, null);		
 	    String updatedBarString = response.getString();
 	    JSONObject updatedBar = JSON.parseObject(updatedBarString);
 	    assertEquals(newBarName, updatedBar.get("name"));
@@ -64,7 +64,7 @@ public class CustomerIT extends RestfulIT {
 		
 		// When: reload the bar
 		// GET - http://localhost:8080/cspdemo/testapp/services/1.0/bo/query/{boName}/{ID}
-		HttpResponse response = this.doGet("isvtest", "bo/query/Customer/" + barId, null);
+		HttpResponse response = this.doGet("admin", "bo/query/Customer/" + barId, null);
 		assertEquals(200, response.getStatusCode());
 	    String sameBarString = response.getString();
 	    JSONObject sameBar = JSON.parseObject(sameBarString);
@@ -81,10 +81,10 @@ public class CustomerIT extends RestfulIT {
 		
 		// When: delete the bar
 		// DELETE - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}/{ID}
-		HttpResponse response = this.doDelete("isvtest", "bo/dml/Customer/" + barId, null);
+		HttpResponse response = this.doDelete("admin", "bo/dml/Customer/" + barId, null);
 		
 		// Then: check whether the bar is deleted
-		response = this.doGet("isvtest", "bo/query/Customer/" + barId, null);
+		response = this.doGet("admin", "bo/query/Customer/" + barId, null);
 		assertEquals(400, response.getStatusCode());	
 	}
 	
@@ -99,7 +99,7 @@ public class CustomerIT extends RestfulIT {
 		fooMap.put("name", fooName);	
 		fooMap.put("customer", barId);
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
-		HttpResponse response = this.doPost("isvtest", "/bo/dml/Contact", fooMap);
+		HttpResponse response = this.doPost("admin", "/bo/dml/Contact", fooMap);
 		assertEquals(200, response.getStatusCode());		
 	    String fooString = response.getString();
 	    JSONObject foo = JSON.parseObject(fooString);

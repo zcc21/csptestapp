@@ -23,7 +23,7 @@ public class ContactIT extends RestfulIT {
 		fooMap.put("name", DEFAULT_FOO_NAME);
 		
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
-		HttpResponse response = this.doPost("isvtest", "/bo/dml/Contact", fooMap);
+		HttpResponse response = this.doPost("admin", "/bo/dml/Contact", fooMap);
 		assertEquals(200, response.getStatusCode());
 		
 	    String fooString = response.getString();
@@ -46,11 +46,11 @@ public class ContactIT extends RestfulIT {
 		
 		// When: update the name
 		// PUT - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}/{ID}
-		HttpResponse response = this.doPut("isvtest", "bo/dml/Contact/" + fooId, foo);
+		HttpResponse response = this.doPut("admin", "bo/dml/Contact/" + fooId, foo);
 		assertEquals(200, response.getStatusCode());
 	    
 	    // Then: check whether the name has updated
-	    response = this.doGet("isvtest", "bo/query/Contact/" + fooId, null);		
+	    response = this.doGet("admin", "bo/query/Contact/" + fooId, null);		
 	    String updatedFooString = response.getString();
 	    JSONObject updatedFoo = JSON.parseObject(updatedFooString);
 	    assertEquals(newFooName, updatedFoo.get("name"));
@@ -63,7 +63,7 @@ public class ContactIT extends RestfulIT {
 		
 		// When: reload the foo
 		// GET - http://localhost:8080/cspdemo/testapp/services/1.0/bo/query/{boName}/{ID}
-		HttpResponse response = this.doGet("isvtest", "bo/query/Contact/" + fooId, null);
+		HttpResponse response = this.doGet("admin", "bo/query/Contact/" + fooId, null);
 		assertEquals(200, response.getStatusCode());
 	    String sameFooString = response.getString();
 	    JSONObject sameFoo = JSON.parseObject(sameFooString);
@@ -80,10 +80,10 @@ public class ContactIT extends RestfulIT {
 		
 		// When: delete the foo
 		// DELETE - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}/{ID}
-		HttpResponse response = this.doDelete("isvtest", "bo/dml/Contact/" + fooId, null);
+		HttpResponse response = this.doDelete("admin", "bo/dml/Contact/" + fooId, null);
 		
 		// Then: check whether the foo is deleted
-		response = this.doGet("isvtest", "bo/query/Contact/" + fooId, null);
+		response = this.doGet("admin", "bo/query/Contact/" + fooId, null);
 		assertEquals(400, response.getStatusCode());	
 	}
 }
