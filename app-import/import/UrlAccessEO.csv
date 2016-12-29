@@ -1,0 +1,5 @@
+id,urlRule,method,urlPattern
+10001,10001,GET,/restlet/v2_1/Customer/*
+10002,10001,POST,/restlet/v2_1/Customer
+10003,10001,PUT,/restlet/v2_1/Customer/*
+10004,10002,DELETE,/restlet/v2_1/Customer/*

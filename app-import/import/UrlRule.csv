@@ -1,0 +1,3 @@
+id,urlRule,title,description
+10001,CustomerCUR,"Create, update and retrieve customer","customer management without deletion"
+10002,CustomerDeletion,"Delete customer","delete customer"

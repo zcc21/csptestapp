@@ -1,8 +1,8 @@
+/restlet/v2_1/Customer
+/restlet/v2_1/Customer/*
+
 /bo/query/Customer
 /bo/query/Customer/*
 /bo/dml/Customer
-/bo/dml/Customer
-/bo/query/Contact
-/bo/query/Contact/*
-/bo/dml/Contact
-/bo/query/CSPUser
+/bo/dml/Customer/*
+
