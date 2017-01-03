@@ -1,4 +1,4 @@
-package com.cspdemo.testapp.test.v2_2;
+package com.cspdemo.testapp.test.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +12,12 @@ public class CustomerService extends RestfulIT {
 	private static final int BAD_REQUEST = 400;
 	private static final int FORBIDDEN = 403;
 
-	public JSONObject addNewBy(String userTag, String name) throws Exception {
+	public JSONObject addNewBy(String userTag, String name, Long employeeNumber) throws Exception {
 		setIsCspServletURL(false);
 		
 		Map<String, Object> customerMap = new HashMap<String, Object>();
 		customerMap.put("name", name);
-		JSONObject customer = null; 
+		customerMap.put("employeeNumber", employeeNumber);		
 		
 		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_1/{restletName} 
 		HttpResponse response = this.doPost(userTag, "/restlet/v2_1/Customer", customerMap);
@@ -27,8 +27,12 @@ public class CustomerService extends RestfulIT {
 		}
 		
 		String customerString = response.getString();
-		customer = JSON.parseObject(customerString);
+		JSONObject customer = JSON.parseObject(customerString);
 		return customer;
+	}
+	
+	public JSONObject addNewBy(String userTag, String name) throws Exception {
+		return addNewBy(userTag, name, 0L);
 	}
 
 	public JSONObject updateBy(String userTag, Long customerId, Map<String, Object> updatedCustomerMap) throws Exception {
