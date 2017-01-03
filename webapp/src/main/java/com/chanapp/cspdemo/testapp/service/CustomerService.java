@@ -11,6 +11,8 @@ public interface CustomerService {
 
 	public ICustomerRow getById(Long id);
 
+	public ICustomerRow addNew(String name);
+	
 	public ICustomerRow addNew(LinkedHashMap<String, Object> customerMap);
 
 	public ICustomerRow update(Long id, LinkedHashMap<String, Object> updatedCustomerMap);

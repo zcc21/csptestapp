@@ -64,6 +64,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public ICustomerRow addNew(String name) {
+		LinkedHashMap<String, Object> customerMap = new LinkedHashMap<>();
+		customerMap.put("name", name);
+		
+		return addNew(customerMap);
+	}
+
+	@Override
 	public ICustomerRow addNew(LinkedHashMap<String, Object> customerMap) {
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
 		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
