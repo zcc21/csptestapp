@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chanjet.csp.platform.test.HttpResponse;
 import com.chanjet.csp.platform.test.RestfulIT;
+import com.cspdemo.testapp.test.utils.CustomerService;
 
 public class PrivilegedCustomerIT extends RestfulIT {
 
