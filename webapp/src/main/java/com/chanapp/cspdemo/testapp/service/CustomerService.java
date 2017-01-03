@@ -17,4 +17,5 @@ public interface CustomerService {
 
 	public Map<String, Object> addNewWithContact(Map<String, Object> customerWithContactMap);
 
+	public boolean isBigCustomer(Long id);
 }

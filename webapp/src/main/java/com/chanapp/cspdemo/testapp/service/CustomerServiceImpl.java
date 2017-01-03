@@ -14,6 +14,7 @@ import com.chanjet.csp.bo.api.IBusinessObjectManager;
 import com.chanjet.csp.common.base.util.TransactionTracker;
 
 public class CustomerServiceImpl implements CustomerService {
+	private static final Long MIN_EMPLOYEE_NUMBER_OF_BIG_CUSTOMER = 1000L;
 	private ContactService contactService = new ContactServiceImpl();
 
 	@Override
@@ -146,5 +147,11 @@ public class CustomerServiceImpl implements CustomerService {
 		result.put("customer", customerRow);
 		result.put("contact", contactRow);
 		return result;
+	}
+
+	@Override
+	public boolean isBigCustomer(Long id) {
+		ICustomerRow customer = getById(id);
+		return (customer.getEmployeeNumber() >= MIN_EMPLOYEE_NUMBER_OF_BIG_CUSTOMER); 
 	}
 }
