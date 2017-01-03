@@ -92,6 +92,8 @@ public class PrivilegedCustomerIT extends RestfulIT {
 		disableEntityPrivilege(CUSTOMER_ENTITY_NAME);
 		disableUserPrivilege(bossId);
 		disableUserPrivilege(salesmanId);
+		
+		disableUrlAccessRule();
 	}
 
 	private void deleteAssignedUrlRulesOf(List<Long> roleUrlRuleIds) throws Exception {
@@ -103,8 +105,7 @@ public class PrivilegedCustomerIT extends RestfulIT {
 			// DELETE - http://localhost:8080/cspdemo/testapp/services/1.0/dataauth/roleurlrule/{roleUrlRuleId}
 			HttpResponse response = this.doDelete("admin", "/dataauth/roleurlrule/" + roleUrlRuleId, null);
 			assertEquals(200, response.getStatusCode());	
-		}	
-		
+		}		
 	}
 
 	@Test
@@ -275,6 +276,7 @@ public class PrivilegedCustomerIT extends RestfulIT {
 		thrown.expect(RuntimeException.class);	
 		Long barId = bar.getLong("id");
 		customerService.deleteBy(BOSS_NAME, barId);		
+		
 	}
 	
 	@Test
@@ -294,12 +296,9 @@ public class PrivilegedCustomerIT extends RestfulIT {
 		Long barId = bar.getLong("id");
 		customerService.deleteBy(BOSS_NAME, barId);		
 		
-		// Then: check the bar has been deleted
-		//thrown.expect(RuntimeException.class);
-		//thrown.expectMessage("status:400");
-		JSONObject nullBar = customerService.getBy(SALESMAN_NAME, barId);
-		assertNull(nullBar);		
-			
+		// Then: check the bar has been deleted	;
+		JSONObject nullBar = customerService.getBy(BOSS_NAME, barId);
+		assertNull(nullBar);			
 	}
 
 	private Long assignUrlRuleTo(Long roleId, Long urlRuleId) throws Exception {
@@ -325,6 +324,12 @@ public class PrivilegedCustomerIT extends RestfulIT {
 	private void enableUrlAccessRule() throws Exception {
 		// PUT - http://localhost:8080/cspdemo/testapp/services/1.0/dataauth/urlaccess/{status}
 		HttpResponse response = this.doPut("admin", "/dataauth/urlaccess/enable", null);
+		assertEquals(200, response.getStatusCode());
+	}
+
+	private void disableUrlAccessRule() throws Exception {	
+		// PUT - http://localhost:8080/cspdemo/testapp/services/1.0/dataauth/urlaccess/{status}
+		HttpResponse response = this.doPut("admin", "/dataauth/urlaccess/disable", null);
 		assertEquals(200, response.getStatusCode());
 	}
 

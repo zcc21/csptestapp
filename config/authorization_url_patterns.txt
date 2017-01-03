@@ -1,5 +1,5 @@
-/restlet/v2_1/Customer
-/restlet/v2_1/Customer/*
+/Customer
+/Customer/*
 
 /bo/query/Customer
 /bo/query/Customer/*

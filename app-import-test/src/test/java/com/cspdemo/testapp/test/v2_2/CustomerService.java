@@ -10,6 +10,7 @@ import com.chanjet.csp.platform.test.RestfulIT;
 
 public class CustomerService extends RestfulIT {
 	private static final int BAD_REQUEST = 400;
+	private static final int FORBIDDEN = 403;
 
 	public JSONObject addNewBy(String userTag, String name) throws Exception {
 		setIsCspServletURL(false);
@@ -64,7 +65,8 @@ public class CustomerService extends RestfulIT {
 		// DELETE - http://localhost:8080/cspdemo/testapp/restlet/v2_1/{restletName}/{ID}
 		HttpResponse response = this.doDelete(userTag, "/restlet/v2_1/Customer/" + barId, null);
 		
-		if (BAD_REQUEST == response.getStatusCode()) {
+		int statusCode = response.getStatusCode();
+		if (BAD_REQUEST == statusCode || FORBIDDEN == statusCode) {
 			throw new RuntimeException(response.getString());
 		}				
 	}
