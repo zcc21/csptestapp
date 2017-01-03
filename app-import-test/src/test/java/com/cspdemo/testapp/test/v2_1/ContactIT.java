@@ -26,7 +26,7 @@ public class ContactIT extends RestfulIT {
 		Map<String, Object> fooMap = new HashMap<String, Object>();
 		fooMap.put("name", DEFAULT_FOO_NAME);
 		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_1/{restletName} 
-		HttpResponse response = this.doPost("testRegular", "/restlet/v2_1/Contact", fooMap);
+		HttpResponse response = this.doPost("admin", "/restlet/v2_1/Contact", fooMap);
 		assertEquals(200, response.getStatusCode());
 	    String fooString = response.getString();
 	    foo = JSON.parseObject(fooString);
