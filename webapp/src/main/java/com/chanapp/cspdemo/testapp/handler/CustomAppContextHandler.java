@@ -46,27 +46,7 @@ public class CustomAppContextHandler implements AppContextHandler {
 	}
 
 	@Override
-	public void shutdown(RestAppContext c) {
-		/*BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
-		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		try {
-			// open transaction
-			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
-			
-			// delete the retail customers
-			CustomerService customerService = new CustomerServiceImpl();
-			ICustomerRowSet retailCustomers = customerService.getByName(RETAIL_CUSTOMER);
-			for (ICustomerRow aRetailer : retailCustomers.getCustomerRows()) {
-				customerService.deleteById(aRetailer.getId());
-			}			
-			
-			// commit
-			transactionManager.commitTransaction(boSession, transactionTrack);
-		} catch (Exception e) {
-			// roll back
-			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
-		}*/
+	public void shutdown(RestAppContext c) {		
 		
 	}
 
