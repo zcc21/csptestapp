@@ -7,7 +7,7 @@
 	xmlns:baseField="http://www.chanjet.com/metadata/base/baseField"
 	xmlns:picker="http://www.chanjet.com/metadata/picker"
 	xmlns:query="http://www.chanjet.com/metadata/query">
-	<sapphirelayout>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGRpYWdyYW0tZ2VvbWV0cnk+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDU1BVc2VyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjM2IiB5PSIxOTMiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDb250YWN0IzE8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjMwNiIgeT0iMzYiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDdXN0b21lciMyPC9pZD4NCiAgICAgICAgPGJvdW5kcyB4PSI1OTAiIHk9IjE1MCIvPg0KICAgIDwvbm9kZT4NCjwvZGlhZ3JhbS1nZW9tZXRyeT4=</sapphirelayout>
+	<sapphirelayout>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGRpYWdyYW0tZ2VvbWV0cnk+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDU1BVc2VyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjM2IiB5PSIxOTMiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDb250YWN0IzE8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjMwNiIgeT0iMzYiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5CdXNpbmVzc09iamVjdCNDdXN0b21lciMyPC9pZD4NCiAgICAgICAgPGJvdW5kcyB4PSI1OTAiIHk9IjE1MCIvPg0KICAgIDwvbm9kZT4NCiAgICA8bm9kZT4NCiAgICAgICAgPGlkPkJ1c2luZXNzT2JqZWN0I1Jlc3RsZXRGbG93IzM8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjMwMCIgeT0iMjcwIi8+DQogICAgPC9ub2RlPg0KPC9kaWFncmFtLWdlb21ldHJ5Pg==</sapphirelayout>
 	<bo:BusinessObjects>
 		<bo:BusinessObject systemflag="true" name="CSPUser" label="用户"
 			includeAllEOFields="true" primary="true">
@@ -167,5 +167,45 @@
 				</bo:Field>
 			</bo:Fields>
 		</bo:BusinessObject>
+        <bo:BusinessObject enableExtensionCodeGen="false" primary="true" registerForCrossAppEvent="false" name="RestletFlow" label="Restlet流量统计" includeAllEOFields="true" includeCustomFields="false">
+            <bo:EntityUsages>
+                <bo:PrimaryEO name="RestletFlow" refEntityName="RestletFlow"></bo:PrimaryEO>
+            </bo:EntityUsages>
+            <bo:Fields>
+                <bo:Field name="name" label="restlet 名称" refEntityUsageName="RestletFlow" refEntityFieldName="name" type="Text">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </bo:Field>
+                <bo:Field name="method" label="restlet 方法" refEntityUsageName="RestletFlow" refEntityFieldName="method" type="Text">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </bo:Field>
+                <bo:Field name="callCount" label="restlet 调用次数" refEntityUsageName="RestletFlow" refEntityFieldName="callCount" type="Integer">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </bo:Field>
+            </bo:Fields>
+        </bo:BusinessObject>
 	</bo:BusinessObjects>
 </bo>

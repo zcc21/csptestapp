@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<entity:Entity xmlns:entity="http://www.chanjet.com/metadata/entity" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseEntity="http://www.chanjet.com/metadata/base/baseEntity" xmlns:field="http://www.chanjet.com/metadata/field" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" authMode="None" dynamicUpdate="false" label="Restlet流量统计" name="RestletFlow" shadowTarget="true" xsi:schemaLocation="http://www.chanjet.com/metadata/base http://www.chanapp.com/xsd/metadata/userschema/xsd/BaseUserMetadata.xsd http://www.chanjet.com/metadata/relationship http://www.chanapp.com/xsd/metadata/userschema/xsd/Relationship.xsd">
+    <entity:Fields>
+                <entity:Field active="true" index="false" label="restlet 名称" name="name" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="1"/>
+            </field:UiHints>
+        </entity:Field>
+                <entity:Field active="true" index="false" label="restlet 方法" name="method" type="Text" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="2"/>
+            </field:UiHints>
+        </entity:Field>
+                <entity:Field active="true" index="false" label="restlet 调用次数" name="callCount" type="Integer" unique="false">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="3"/>
+            </field:UiHints>
+        </entity:Field>
+            </entity:Fields>
+</entity:Entity>

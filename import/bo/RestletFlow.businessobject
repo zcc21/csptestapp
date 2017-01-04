@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bo:BusinessObject xmlns:bo="http://www.chanjet.com/metadata/businessObject" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseField="http://www.chanjet.com/metadata/base/baseField" xmlns:field="http://www.chanjet.com/metadata/BOField" enableExtensionCodeGen="false" includeAllEOFields="true" includeCustomFields="false" label="Restlet流量统计" name="RestletFlow" primary="true" registerForCrossAppEvent="false">
+    <bo:EntityUsages>
+                <bo:PrimaryEO name="RestletFlow"/>
+            </bo:EntityUsages>
+    <bo:Fields>
+                <bo:Field label="restlet 名称" name="name" refEntityFieldName="name" refEntityUsageName="RestletFlow" type="Text">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="1"/>
+            </field:UiHints>
+        </bo:Field>
+                <bo:Field label="restlet 方法" name="method" refEntityFieldName="method" refEntityUsageName="RestletFlow" type="Text">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="2"/>
+            </field:UiHints>
+        </bo:Field>
+                <bo:Field label="restlet 调用次数" name="callCount" refEntityFieldName="callCount" refEntityUsageName="RestletFlow" type="Integer">
+            <field:UiHints>
+                <UiHint name="displayOrder" value="3"/>
+            </field:UiHints>
+        </bo:Field>
+            </bo:Fields>
+</bo:BusinessObject>
