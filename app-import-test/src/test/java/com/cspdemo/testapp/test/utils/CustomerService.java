@@ -63,11 +63,11 @@ public class CustomerService extends RestfulIT {
 	    return customer;
 	}
 
-	public void deleteBy(String userTag, Long barId) throws Exception {
+	public void deleteBy(String userTag, Long customerId) throws Exception {
 		setIsCspServletURL(false);		
 		
 		// DELETE - http://localhost:8080/cspdemo/testapp/restlet/v2_1/{restletName}/{ID}
-		HttpResponse response = this.doDelete(userTag, "/restlet/v2_1/Customer/" + barId, null);
+		HttpResponse response = this.doDelete(userTag, "/restlet/v2_1/Customer/" + customerId, null);
 		
 		int statusCode = response.getStatusCode();
 		if (BAD_REQUEST == statusCode || FORBIDDEN == statusCode) {
