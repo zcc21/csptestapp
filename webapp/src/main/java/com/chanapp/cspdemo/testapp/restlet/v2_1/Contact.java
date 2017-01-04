@@ -22,6 +22,12 @@ public class Contact extends Restlet {
 		IContactRow contactRow = contactService.getById(id);		
 		return contactRow;
 	}
+	
+	@Override 
+	public Object doGet(Map<String, String[]> queryParameters) {	
+		String name = queryParameters.get("name")[0];
+		return contactService.getByName(name);		
+	}
 
 	@Override
 	public Object doPost(Map<String, String[]> queryParameters, String contactJsonString) {		
