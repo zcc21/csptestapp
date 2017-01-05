@@ -36,5 +36,42 @@
                     </field:UiHints>
                 </entity:Field>
             </entity:Fields>
-        </entity:Entity></entity:Entities><sapphirelayout>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGRpYWdyYW0tZ2VvbWV0cnk+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5lbnRpdGllcyNVc2VyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQwIiB5PSIyOTAiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5lbnRpdGllcyNDb250YWN0IzE8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjM2IiB5PSIzNiIvPg0KICAgIDwvbm9kZT4NCiAgICA8bm9kZT4NCiAgICAgICAgPGlkPmVudGl0aWVzI0N1c3RvbWVyIzI8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQxNSIgeT0iMTkwIi8+DQogICAgPC9ub2RlPg0KICAgIDxub2RlPg0KICAgICAgICA8aWQ+ZW50aXRpZXMjUmVzdGxldEZsb3cjMzwvaWQ+DQogICAgICAgIDxib3VuZHMgeD0iMzk2IiB5PSIzMzAiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5jc3BlbnVtcyNDb250YWN0R2VuZGVyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQxNSIgeT0iMzciLz4NCiAgICA8L25vZGU+DQo8L2RpYWdyYW0tZ2VvbWV0cnk+</sapphirelayout><enum:AppCSPEnums><enum:CSPEnum name="ContactGender"><enum:EnumValues><enum:EnumValue name="male" label="男"></enum:EnumValue><enum:EnumValue name="female" label="女"></enum:EnumValue></enum:EnumValues></enum:CSPEnum></enum:AppCSPEnums><Relationships><Relationship cardinality="One-to-Many" masterdetail="false" TargetEntity="Contact" SourceEntity="Customer" name="ContactToCustomer"><FieldAssociation SourceField="id" TargetField="customer"></FieldAssociation></Relationship></Relationships>
+        </entity:Entity>
+        <entity:Entity authMode="None" dynamicUpdate="false" shadowTarget="true" name="UserLog" label="用户登录日志">
+            <entity:Fields>
+                <entity:Field active="true" index="false" type="Integer" unique="false" name="userId" label="用户ID">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </entity:Field>
+                <entity:Field active="true" index="false" type="Timestamp" unique="false" name="loginTime" label="登录时间">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </entity:Field>
+                <entity:Field active="true" index="false" type="Text" unique="false" name="ip" label="登录IP">
+                    <field:UiHints>
+                        <field:UiHint name="showOnList"></field:UiHint>
+                        <field:UiHint name="showOnView"></field:UiHint>
+                        <field:UiHint name="showOnEdit"></field:UiHint>
+                        <field:UiHint name="asQuery"></field:UiHint>
+                        <field:UiHint name="asDimension"></field:UiHint>
+                        <field:UiHint name="asMeasure"></field:UiHint>
+                        <field:UiHint name="editable"></field:UiHint>
+                    </field:UiHints>
+                </entity:Field>
+            </entity:Fields>
+        </entity:Entity></entity:Entities><sapphirelayout>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPGRpYWdyYW0tZ2VvbWV0cnk+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5lbnRpdGllcyNVc2VyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQwIiB5PSIyOTAiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5lbnRpdGllcyNDb250YWN0IzE8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjM2IiB5PSIzNiIvPg0KICAgIDwvbm9kZT4NCiAgICA8bm9kZT4NCiAgICAgICAgPGlkPmVudGl0aWVzI0N1c3RvbWVyIzI8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQxNSIgeT0iMTkwIi8+DQogICAgPC9ub2RlPg0KICAgIDxub2RlPg0KICAgICAgICA8aWQ+ZW50aXRpZXMjUmVzdGxldEZsb3cjMzwvaWQ+DQogICAgICAgIDxib3VuZHMgeD0iMzk2IiB5PSIzMzAiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5lbnRpdGllcyNVc2VyTG9nIzQ8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQwIiB5PSIzOTAiLz4NCiAgICA8L25vZGU+DQogICAgPG5vZGU+DQogICAgICAgIDxpZD5jc3BlbnVtcyNDb250YWN0R2VuZGVyIzA8L2lkPg0KICAgICAgICA8Ym91bmRzIHg9IjQxNSIgeT0iMzciLz4NCiAgICA8L25vZGU+DQo8L2RpYWdyYW0tZ2VvbWV0cnk+</sapphirelayout><enum:AppCSPEnums><enum:CSPEnum name="ContactGender"><enum:EnumValues><enum:EnumValue name="male" label="男"></enum:EnumValue><enum:EnumValue name="female" label="女"></enum:EnumValue></enum:EnumValues></enum:CSPEnum></enum:AppCSPEnums><Relationships><Relationship cardinality="One-to-Many" masterdetail="false" TargetEntity="Contact" SourceEntity="Customer" name="ContactToCustomer"><FieldAssociation SourceField="id" TargetField="customer"></FieldAssociation></Relationship></Relationships>
 </schema>
