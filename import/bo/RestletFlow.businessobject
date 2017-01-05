@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<bo:BusinessObject xmlns:bo="http://www.chanjet.com/metadata/businessObject" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseField="http://www.chanjet.com/metadata/base/baseField" xmlns:field="http://www.chanjet.com/metadata/BOField" enableExtensionCodeGen="false" includeAllEOFields="true" includeCustomFields="false" label="Restlet流量统计" name="RestletFlow" primary="true" registerForCrossAppEvent="false">
+<bo:BusinessObject xmlns:bo="http://www.chanjet.com/metadata/businessObject" xmlns="http://www.chanjet.com/metadata/base" xmlns:baseField="http://www.chanjet.com/metadata/base/baseField" xmlns:field="http://www.chanjet.com/metadata/BOField" enableExtensionCodeGen="true" includeAllEOFields="true" includeCustomFields="false" label="Restlet流量统计" name="RestletFlow" primary="true" registerForCrossAppEvent="false">
     <bo:EntityUsages>
                 <bo:PrimaryEO name="RestletFlow"/>
             </bo:EntityUsages>
