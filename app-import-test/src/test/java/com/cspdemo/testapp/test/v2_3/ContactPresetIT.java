@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chanjet.csp.platform.test.RestfulIT;
 import com.cspdemo.testapp.test.utils.ContactService;
 
-public class PresetContactIT extends RestfulIT {
+public class ContactPresetIT extends RestfulIT {
 	private ContactService contactService = new ContactService();	
 	
 	@Test

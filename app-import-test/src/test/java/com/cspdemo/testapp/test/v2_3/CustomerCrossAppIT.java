@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chanjet.csp.platform.test.RestfulIT;
 import com.cspdemo.testapp.test.utils.CustomerService;
 
-public class CrossAppCustomerIT extends RestfulIT {
+public class CustomerCrossAppIT extends RestfulIT {
 	private static final Long EMPLOYEE_NUMBER_OF_BIG_CUSTOMER = 1001L;
 	private static final Long EMPLOYEE_NUMBER_OF_SMALL_CUSTOMER = 101L;
 	private CustomerService customerService = new CustomerService();
