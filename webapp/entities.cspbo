@@ -133,11 +133,10 @@
 						<field:UiHint name="editable"></field:UiHint>
 					</field:UiHints>
 					<field:Validation>
-						<baseField:Rule name="EmptyCheck"></baseField:Rule>
 						<baseField:Rule name="StringLengthCheck">
 							<baseField:Parameters>
 								<baseField:Parameter name="minLength"
-									value="5">
+									value="3">
 								</baseField:Parameter>
 							</baseField:Parameters>
 						</baseField:Rule>
