@@ -102,20 +102,31 @@ public class CustomerIT extends RestfulIT {
 	@Test
 	public void shouldAllowAddANewCustomerWithAContact() throws Exception {
 		// Given:
-		Long barId = bar.getLongValue("id");
-		
-		// When: add contact related to the bar
+		// Customer info
+		Map<String, Object> barMap = new HashMap<String, Object>();
+		barMap.put("name", DEFAULT_BAR_NAME);
+		// Contact info
 		String fooName = "foo";
 		Map<String, Object> fooMap = new HashMap<String, Object>();
-		fooMap.put("name", fooName);	
+		fooMap.put("name", fooName);
+
+		// When: 1. add a new Customer
+		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
+		HttpResponse response = this.doPost("admin", "/bo/dml/Customer", barMap);
+		assertEquals(200, response.getStatusCode());
+		String barString = response.getString();
+		bar = JSON.parseObject(barString);		
+		
+		// 2. add a new contact related to the bar
+		Long barId = bar.getLongValue("id");
 		fooMap.put("customer", barId);
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
-		HttpResponse response = this.doPost("admin", "/bo/dml/Contact", fooMap);
-		assertEquals(200, response.getStatusCode());		
-	    String fooString = response.getString();
-	    JSONObject foo = JSON.parseObject(fooString);
+		response = this.doPost("admin", "/bo/dml/Contact", fooMap);
+		assertEquals(200, response.getStatusCode());	    
 	    
 	    // Then: check whether the foo is related to the bar
+		String fooString = response.getString();
+	    JSONObject foo = JSON.parseObject(fooString);
 	    assertNotNull(foo.getLong("id"));
 	    assertEquals(barId, foo.getLong("customer"));	    
 	}
