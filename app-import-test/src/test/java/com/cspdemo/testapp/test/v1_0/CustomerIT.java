@@ -33,13 +33,24 @@ public class CustomerIT extends RestfulIT {
 	
 	@Test
 	public void shouldAllowAddANewCustomer() throws Exception {
-		// Check
+		// Given:
+		Map<String, Object> barMap = new HashMap<String, Object>();
+		barMap.put("name", DEFAULT_BAR_NAME);
+		
+		// When: add a new Customer
+		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
+		HttpResponse response = this.doPost("admin", "/bo/dml/Customer", barMap);
+		assertEquals(200, response.getStatusCode());
+		
+		// Then: check the bar
+	    String barString = response.getString();
+	    bar = JSON.parseObject(barString);
 		assertNotNull(bar.get("id"));
 	    assertEquals(DEFAULT_BAR_NAME, bar.get("name"));	   
 	}
 	
 	@Test
-	public void shouldAllowUpdateACustomer() throws Exception {
+	public void shouldAllowUpdateTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLongValue("id");
 		String newBarName = "barbar";
@@ -58,7 +69,7 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowGetACustomer() throws Exception {
+	public void shouldAllowGetTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLongValue("id");
 		
@@ -75,7 +86,7 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowDeleteACustomer() throws Exception {
+	public void shouldAllowDeleteTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLongValue("id");
 		
