@@ -80,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}	
 		
 		// 
