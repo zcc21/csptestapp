@@ -158,7 +158,7 @@
 						<baseField:Rule name="NumberScopeCheck">
 							<baseField:Parameters>
 								<baseField:Parameter name="minValue"
-									value="5">
+									value="0">
 								</baseField:Parameter>
 							</baseField:Parameters>
 						</baseField:Rule>
