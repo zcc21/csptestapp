@@ -14,6 +14,7 @@ import com.chanjet.csp.platform.test.HttpResponse;
 import com.chanjet.csp.platform.test.RestfulIT;
 
 public class CustomerIT extends RestfulIT {
+	private static final String DEFAULT_FOO_NAME = "foo";
 	private JSONObject bar;
 	private static final String DEFAULT_BAR_NAME = "bar";
 	
@@ -91,20 +92,19 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowAddANewCustomerWithAContact() throws Exception {
+	public void shouldAllowAddANewCustomerWithContact() throws Exception {
 		// Given:
 		// Customer info
 		Map<String, Object> barMap = new HashMap<>();
 		barMap.put("name", DEFAULT_BAR_NAME);
 		// Contact info
-		String fooName = "foo";
 		Map<String, Object> fooMap = new HashMap<>();
-		fooMap.put("name", fooName);		
+		fooMap.put("name", DEFAULT_FOO_NAME);		
 		Map<String, Object> barWithFooMap = new HashMap<>(); 
 		barWithFooMap.put("customer", barMap);
 		barWithFooMap.put("contact", fooMap);
 
-		// When: add contact related to the bar		
+		// When: add new customer with contact		
 		// POST - http://localhost:8080/cspdemo/testapp/restlet/v2_0/{restletName}/{FuncName}
 		HttpResponse response = this.doPost("admin", "/restlet/v2_0/Customer/WithContact", barWithFooMap);
 		assertEquals(200, response.getStatusCode());		
