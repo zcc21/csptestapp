@@ -38,7 +38,7 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowGetACustomer() throws Exception {
+	public void shouldAllowGetTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLong("id");	
 		
@@ -55,7 +55,7 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowUpdateACustomer() throws Exception {
+	public void shouldAllowUpdateTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLong("id");	
 		String newBarName = "barbar";
@@ -77,7 +77,7 @@ public class CustomerIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowDeleteACustomer() throws Exception {
+	public void shouldAllowDeleteTheCustomer() throws Exception {
 		// Given:
 		Long barId = bar.getLong("id");
 		

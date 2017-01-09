@@ -40,7 +40,7 @@ public class ContactIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowGetAContact() throws Exception {
+	public void shouldAllowGetTheContact() throws Exception {
 		// Given:
 		Long fooId = foo.getLong("id");	
 		
@@ -57,7 +57,7 @@ public class ContactIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowUpdateAContact() throws Exception {
+	public void shouldAllowUpdateTheContact() throws Exception {
 		// Given:
 		Long fooId = foo.getLong("id");	
 		String newFooName = "foofoo";
@@ -79,7 +79,7 @@ public class ContactIT extends RestfulIT {
 	}
 	
 	@Test
-	public void shouldAllowDeleteAContact() throws Exception {
+	public void shouldAllowDeleteTheContact() throws Exception {
 		// Given:
 		Long fooId = foo.getLong("id");
 		
