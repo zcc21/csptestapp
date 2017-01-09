@@ -4,12 +4,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.chanapp.cspdemo.testapp.businessobject.api.customer.ICustomerRow;
+import com.chanapp.cspdemo.testapp.businessobject.api.customer.ICustomerRowSet;
 
 public interface CustomerService {
 
 	public void deleteById(Long id);
 
 	public ICustomerRow getById(Long id);
+
+	public ICustomerRowSet getByName(String name);
 
 	public ICustomerRow addNew(String name);
 	
