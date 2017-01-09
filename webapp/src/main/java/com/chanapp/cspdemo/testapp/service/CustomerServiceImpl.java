@@ -6,12 +6,16 @@ import java.util.Map;
 
 import com.chanapp.cspdemo.testapp.businessobject.api.contact.IContactRow;
 import com.chanapp.cspdemo.testapp.businessobject.api.customer.ICustomerRow;
+import com.chanapp.cspdemo.testapp.businessobject.api.customer.ICustomerRowSet;
 import com.chanjet.csp.appmanager.AppWorkManager;
 import com.chanjet.csp.bo.api.BoSession;
 import com.chanjet.csp.bo.api.BoTransactionManager;
 import com.chanjet.csp.bo.api.IBusinessObjectHome;
 import com.chanjet.csp.bo.api.IBusinessObjectManager;
+import com.chanjet.csp.common.base.exception.AppException;
 import com.chanjet.csp.common.base.util.TransactionTracker;
+import com.chanjet.csp.ui.util.Criteria;
+import com.chanjet.csp.ui.util.JsonQueryBuilder;
 
 public class CustomerServiceImpl implements CustomerService {
 	private static final Long MIN_EMPLOYEE_NUMBER_OF_BIG_CUSTOMER = 1000L;
@@ -35,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 	}
 
@@ -58,9 +62,39 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return customerRow;
+	}
+
+	@Override
+	public ICustomerRowSet getByName(String name) {
+		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
+		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
+		ICustomerRowSet customerRows = null;
+		try {
+			// open transaction
+			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
+			
+			// query customer by name
+			Criteria criteria = Criteria.AND();
+			criteria.eq("name", name);
+			
+			JsonQueryBuilder jsonQueryBuilder = JsonQueryBuilder.getInstance();		       
+			jsonQueryBuilder.addCriteria(criteria);
+			
+			IBusinessObjectManager boManager = AppWorkManager.getBusinessObjectManager();
+			IBusinessObjectHome boHome = boManager.getPrimaryBusinessObjectHome("Customer");		
+			customerRows = (ICustomerRowSet) boHome.query(jsonQueryBuilder.toJsonQuerySpec());		
+			
+			// commit
+			transactionManager.commitTransaction(boSession, transactionTrack);
+		} catch (Exception e) {
+			// roll back
+			transactionManager.rollbackTransaction(boSession);
+			throw new AppException(e.getMessage());
+		}
+		return customerRows;
 	}
 
 	@Override
@@ -91,7 +125,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return customerRow;
 	}
@@ -116,7 +150,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return updatedCustomerRow;
 	}
@@ -160,6 +194,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public boolean isBigCustomer(Long id) {
 		ICustomerRow customer = getById(id);
-		return (customer.getEmployeeNumber() >= MIN_EMPLOYEE_NUMBER_OF_BIG_CUSTOMER); 
+		Long employeeNumber = customer.getEmployeeNumber();
+		return (employeeNumber != null && employeeNumber >= MIN_EMPLOYEE_NUMBER_OF_BIG_CUSTOMER); 
 	}
 }

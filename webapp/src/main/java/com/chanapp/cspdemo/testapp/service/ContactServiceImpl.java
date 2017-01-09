@@ -9,6 +9,7 @@ import com.chanjet.csp.bo.api.BoSession;
 import com.chanjet.csp.bo.api.BoTransactionManager;
 import com.chanjet.csp.bo.api.IBusinessObjectHome;
 import com.chanjet.csp.bo.api.IBusinessObjectManager;
+import com.chanjet.csp.common.base.exception.AppException;
 import com.chanjet.csp.common.base.util.TransactionTracker;
 import com.chanjet.csp.ui.util.Criteria;
 import com.chanjet.csp.ui.util.JsonQueryBuilder;
@@ -33,7 +34,7 @@ public class ContactServiceImpl implements ContactService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 	}
 
@@ -57,7 +58,7 @@ public class ContactServiceImpl implements ContactService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return contactRow;
 	}
@@ -87,7 +88,7 @@ public class ContactServiceImpl implements ContactService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return contactRows;
 	}
@@ -113,7 +114,7 @@ public class ContactServiceImpl implements ContactService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return contactRow;
 	}
@@ -138,7 +139,7 @@ public class ContactServiceImpl implements ContactService {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}
 		return updatedContactRow;
 	}
