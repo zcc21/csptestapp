@@ -14,7 +14,7 @@ public class Contact extends Restlet {
 	@Override
 	public Object doDeleteId(Map<String, String[]> queryParameters, String payload, Long id) {
 		contactService.deleteById(id);
-		return null;
+		return id;
 	}
 
 	@Override

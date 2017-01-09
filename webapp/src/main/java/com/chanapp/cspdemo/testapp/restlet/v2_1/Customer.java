@@ -15,7 +15,7 @@ public class Customer extends Restlet {
 	@Override
 	public Object doDeleteId(Map<String, String[]> queryParameters, String payload, Long id) {
 		customerService.deleteById(id);
-		return null;
+		return id;
 	}
 
 	@Override
@@ -47,5 +47,4 @@ public class Customer extends Restlet {
 		Map<String, Object> result = customerService.addNewWithContact(customerWithContactMap);
 		return result;
 	}
-
 }
