@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import com.chanjet.csp.platform.test.HttpResponse;
 import com.chanjet.csp.platform.test.RestfulIT;
 
@@ -119,15 +121,15 @@ public class CustomerIT extends RestfulIT {
 		
 		// 2. add a new contact related to the bar
 		Long barId = bar.getLongValue("id");
-		fooMap.put("customer", barId);
+		LinkedHashMap<String, Object> barIdMap = new LinkedHashMap<>();
+		barIdMap.put("id", barId);
+		fooMap.put("customer", barIdMap);
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
 		response = this.doPost("admin", "/bo/dml/Contact", fooMap);
 		assertEquals(200, response.getStatusCode());	    
 	    
 	    // Then: check whether the foo is related to the bar
 		String fooString = response.getString();
-	    JSONObject foo = JSON.parseObject(fooString);
-	    assertNotNull(foo.getLong("id"));
-	    assertEquals(barId, foo.getLong("customer"));	    
+	    assertEquals(barId, (Long) JSONPath.read(fooString, "$.customer.id"));	    
 	}
 }
