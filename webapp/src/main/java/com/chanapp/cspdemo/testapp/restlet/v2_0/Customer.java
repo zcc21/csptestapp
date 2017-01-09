@@ -12,6 +12,7 @@ import com.chanjet.csp.bo.api.BoTransactionManager;
 import com.chanjet.csp.bo.api.IBusinessObjectHome;
 import com.chanjet.csp.bo.api.IBusinessObjectManager;
 import com.chanjet.csp.bo.api.IBusinessObjectRow;
+import com.chanjet.csp.common.base.exception.AppException;
 import com.chanjet.csp.common.base.util.TransactionTracker;
 import com.chanjet.csp.data.api.DataManager;
 import com.chanjet.csp.rest.restlet.Restlet;
@@ -20,8 +21,7 @@ public class Customer extends Restlet {
 	@Override
 	public Object doDeleteId(Map<String, String[]> queryParameters, String payload, Long id) {
 		BoSession boSession = AppWorkManager.getBoDataAccessManager().getBoSession();
-		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();
-		IBusinessObjectRow customerRow = null;
+		BoTransactionManager transactionManager = AppWorkManager.getBoTransactionManager();		
 		try {
 			// open transaction
 			TransactionTracker transactionTrack = transactionManager.beginTransaction(boSession);
@@ -36,10 +36,10 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}		
 
-		return null;
+		return id;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}		
 		
 		return customerRow;
@@ -88,7 +88,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}		
 		
 		return customerRow;
@@ -116,7 +116,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}		
 		
 		return updatedCustomerRow;
@@ -153,7 +153,7 @@ public class Customer extends Restlet {
 		} catch (Exception e) {
 			// roll back
 			transactionManager.rollbackTransaction(boSession);
-			throw new RuntimeException(e);
+			throw new AppException(e.getMessage());
 		}	
 		
 		// 
