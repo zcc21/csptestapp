@@ -17,6 +17,7 @@ import com.chanjet.csp.platform.test.HttpResponse;
 import com.chanjet.csp.platform.test.RestfulIT;
 
 public class CustomerIT extends RestfulIT {
+	private static final String DEFAULT_FOO_NAME = "foo";
 	private JSONObject bar;
 	private static final String DEFAULT_BAR_NAME = "bar";
 	
@@ -108,9 +109,8 @@ public class CustomerIT extends RestfulIT {
 		Map<String, Object> barMap = new HashMap<String, Object>();
 		barMap.put("name", DEFAULT_BAR_NAME);
 		// Contact info
-		String fooName = "foo";
 		Map<String, Object> fooMap = new HashMap<String, Object>();
-		fooMap.put("name", fooName);
+		fooMap.put("name", DEFAULT_FOO_NAME);
 
 		// When: 1. add a new Customer
 		// POST - http://localhost:8080/cspdemo/testapp/services/1.0/bo/dml/{boName}
